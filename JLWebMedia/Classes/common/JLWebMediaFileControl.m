@@ -6,20 +6,20 @@
 //  Copyright (c) 2015年 PinGuo. All rights reserved.
 //
 
-#import "JLWebMediaControl.h"
+#import "JLWebMediaFileControl.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <objc/runtime.h>
 
-@interface JLWebMediaControl ()
+@interface JLWebMediaFileControl ()
 @property (nonatomic, strong) NSString *dowloadPath;
 @end
 
-@implementation JLWebMediaControl
+@implementation JLWebMediaFileControl
 
 + (instancetype)share
 {
     static dispatch_once_t once;
-    static JLWebMediaControl *instance;
+    static JLWebMediaFileControl *instance;
     dispatch_once(&once, ^{
         instance = [self new];
     });

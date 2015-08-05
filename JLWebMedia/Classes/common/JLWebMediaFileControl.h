@@ -17,7 +17,7 @@
  * 或者使用 default fileMananger
  */
 
-@interface JLWebMediaControl : NSObject
+@interface JLWebMediaFileControl : NSObject
 @property (nonatomic, strong) dispatch_queue_t ioQueue;
 @property (nonatomic, strong) NSFileManager *fileManager;
 

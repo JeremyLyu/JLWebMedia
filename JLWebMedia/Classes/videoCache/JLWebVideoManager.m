@@ -6,17 +6,17 @@
 //  Copyright (c) 2015年 PinGuo. All rights reserved.
 //
 
-#import "SDWebVideoManager.h"
+#import "JLWebVideoManager.h"
 
 @interface SDWebVideoCombinedOperation : NSObject <JLWebMediaOperation>
 @property (nonatomic, assign, getter=isCancelled) BOOL cancelled;
-@property (nonatomic, copy) SDWebVideoNoParamsBlock cancelBlock;
+@property (nonatomic, copy) JLWebMediaNoParamsBlock cancelBlock;
 @property (nonatomic, strong) NSOperation *cacheOperation;
 @end
 
 @implementation SDWebVideoCombinedOperation
 
-- (void)setCancelBlock:(SDWebVideoNoParamsBlock)cancelBlock
+- (void)setCancelBlock:(JLWebMediaNoParamsBlock)cancelBlock
 {
     if(self.isCancelled){
         if (cancelBlock) {
@@ -45,17 +45,17 @@
 
 @end
 
-@interface SDWebVideoManager ()
+@interface JLWebVideoManager ()
 //@property (nonatomic, strong) NSMutableArray *failedURLs;
 @property (nonatomic, strong) NSMutableArray *runningOperations;
 @end
 
-@implementation SDWebVideoManager
+@implementation JLWebVideoManager
 
-+ (SDWebVideoManager *)sharedManager
++ (JLWebVideoManager *)sharedManager
 {
     static dispatch_once_t once;
-    static SDWebVideoManager *instance;
+    static JLWebVideoManager *instance;
     dispatch_once(&once, ^{
         instance = [self new];
     });
@@ -74,10 +74,9 @@
     return self;
 }
 
-//TODO: lxj dowloadImage 应该为video
 - (id<JLWebMediaOperation>)downloadVideoWithURL:(NSURL *)url
                                        progress:(JLWebMediaDownloaderProgressBlock)progressBlock
-                                      completed:(SDWebVideoCompletionBlock)completedBlock
+                                      completed:(JLWebVideoCompletionBlock)completedBlock
 {
     //纠错处理
     if(completedBlock == nil) return nil;
@@ -108,14 +107,14 @@
             {
                 [self.runningOperations removeObject:operation];
             }
-            dispatch_main_async_safe(^{
+            jl_main_async_safe(^{
                 completedBlock(videoPath, nil, YES, url);
             });
             return;
         }
 
         //TODO: 减少分支
-        id subOperation = [self.videoDownloader downloadFileWithURL:url progress:progressBlock comletedBlock:^(NSString *tempPath, NSError *error, BOOL finished) {
+        id subOperation = [self.videoDownloader downloadMediaWithURL:url progress:progressBlock comletedBlock:^(NSString *tempPath, NSError *error, BOOL finished) {
             
             //TODO: LXJ 一些cancel的处理， remove operation
             if(weakOperation.isCancelled)
@@ -125,7 +124,7 @@
             else if(error)
             {
                 //下载出错
-                dispatch_main_sync_safe(^{
+                jl_main_sync_safe(^{
                     if(!weakOperation.isCancelled)
                     {
                         completedBlock(nil, error, finished, url);
@@ -138,12 +137,12 @@
                 [self.videoCache storeVideoWithPath:tempPath forKey:url.absoluteString completion:^(NSString *videoPath, BOOL success) {
                     if(success)
                     {
-                        dispatch_main_sync_safe(^{
+                        jl_main_sync_safe(^{
                             if(!weakOperation.isCancelled)
                             {
                                 completedBlock(videoPath, nil, YES, url);
                             }
-                        })
+                        });
                     }
                 }];
             }

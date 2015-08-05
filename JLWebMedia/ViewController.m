@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "JLWebMediaDownloader.h"
+#import "SDVideoCache.h"
+#import "JLWebVideoManager.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelProgress;
@@ -23,12 +25,18 @@
 - (IBAction)downLoadBtnPressed:(id)sender
 {
     NSURL *url = [NSURL URLWithString:@"http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1308/15/c2/24494083_1376530583817.jpg"];
-    [[JLWebMediaDownloader shareDownloader] downloadFileWithURL:url progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        self.btnDownLoad.enabled = NO;
+    self.btnDownLoad.enabled = NO;
+    [[JLWebVideoManager sharedManager] downloadVideoWithURL:url progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         self.labelProgress.text = [NSString stringWithFormat:@"%.0ld/%.0ld", (long)receivedSize, (long)expectedSize];
-    } comletedBlock:^(NSString *tempPath, NSError *error, BOOL finished) {
-        self.btnDownLoad.enabled = YES;
+
+    } completed:^(NSString *videoPath, NSError *error, BOOL finished, NSURL *videoURL) {
+         self.btnDownLoad.enabled = YES;
     }];
+}
+
+- (IBAction)clearCacheBtnPressed:(id)sender
+{
+    [[SDVideoCache shareVideoCache] clearCacheOnCompletion:nil];
 }
 
 @end

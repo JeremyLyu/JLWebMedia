@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SDWebVideoCompat.h"
+#import "JLWebMediaCompat.h"
 
 typedef NS_ENUM(NSInteger, SDVideoCacheType) {
     SDVideoCacheTypeNone,
@@ -69,5 +69,5 @@ typedef void(^SDWebVideoStoreCompletedBlock)(NSString *videoPath, BOOL success);
  *
  *  @param completion 完成的回调
  */
-- (void)clearCacheOnCompletion:(SDWebVideoNoParamsBlock)completion;
+- (void)clearCacheOnCompletion:(JLWebMediaNoParamsBlock)completion;
 @end

@@ -8,7 +8,7 @@
 
 #import "JLWebMediaDownloader+sessionDelegate.h"
 #import "JLWebMediaCompat.h"
-#import "JLWebMediaControl.h"
+#import "JLWebMediaFileControl.h"
 
 static NSString *const JLWebMediaResumeDataSuffix = @".rds";
 static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloaderCacheDir";
@@ -28,7 +28,7 @@ static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloade
              NSString *resumeDataPath = [self resumeDataPathWithURL:url];
             if(resumeDataPath)
             {
-                [[JLWebMediaControl share] async_safe:^{
+                [[JLWebMediaFileControl share] async_safe:^{
                     [resumeData writeToFile:resumeDataPath atomically:YES];
                 }];
             }
@@ -53,7 +53,7 @@ static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloade
     NSURL *url = downloadTask.originalRequest.URL;
     //将下载的文件放入文件缓存中
     NSString *cacheFilePath = [self cachePathWithURL:url];
-    BOOL success = [[JLWebMediaControl share] moveItemAtURL:location toURL:[[NSURL alloc] initFileURLWithPath:cacheFilePath] completion:nil];
+    BOOL success = [[JLWebMediaFileControl share] moveItemAtURL:location toURL:[[NSURL alloc] initFileURLWithPath:cacheFilePath] completion:nil];
     //TODO: 增加一点判错处理, 如果文件已经存在了，造成了文件操作错误，则需要将它移除了
     if(success == NO)
     {
@@ -70,9 +70,9 @@ static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloade
             if(completeBlock) completeBlock(cacheFilePath, nil, YES);
         }
         //操作完成后，如果缓存依然存在则将缓存移除
-        if([[JLWebMediaControl share] fileExistWithPath:cacheFilePath])
+        if([[JLWebMediaFileControl share] fileExistWithPath:cacheFilePath])
         {
-            [[JLWebMediaControl share] removeItemForPath:cacheFilePath completion:^{
+            [[JLWebMediaFileControl share] removeItemForPath:cacheFilePath completion:^{
                 NSLog(@"JLWebMediaDownloader:下载回调完成后，移除了下载缓存");
             }];
         }
@@ -98,7 +98,7 @@ static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloade
 - (NSString *)cacheDirPath
 {
     NSString *direct = [NSTemporaryDirectory() stringByAppendingString:JLWebMediaDownLoaderCacheDir];
-    return [[JLWebMediaControl share] getDirectoryWithPath:direct];
+    return [[JLWebMediaFileControl share] getDirectoryWithPath:direct];
 }
 
 - (NSString *)cachePathWithURL:(NSURL *)url
@@ -106,7 +106,7 @@ static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloade
     NSString *urlString = url.absoluteString;
     if(urlString.length == 0) return nil;
     NSString *cacheDirPath = [self cacheDirPath];
-    NSString *fileName = [JLWebMediaControl cachedFileNameForKey:urlString];
+    NSString *fileName = [JLWebMediaFileControl cachedFileNameForKey:urlString];
     NSString *cacheFilePath = [cacheDirPath stringByAppendingPathComponent:fileName];
     return cacheFilePath;
 }

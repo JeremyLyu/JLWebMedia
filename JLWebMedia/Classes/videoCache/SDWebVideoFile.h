@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SDWebVideoCompat.h"
-
+#import "JLWebMediaCompat.h"
 
 @interface NSFileHandle (SDWebVideoFile)
 @property (nonatomic, strong) NSString *filePath;
@@ -54,7 +53,7 @@
  *  @param completion 完成的回调
  *  @param path       目录的路径
  */
-- (void)clearDirectoryOnCompletion:(SDWebVideoNoParamsBlock)completion path:(NSString *)path;
+- (void)clearDirectoryOnCompletion:(JLWebMediaNoParamsBlock)completion path:(NSString *)path;
 
 /**
  *  获取目录的Size

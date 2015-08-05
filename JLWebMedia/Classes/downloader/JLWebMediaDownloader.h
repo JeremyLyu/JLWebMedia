@@ -36,9 +36,11 @@ static NSString *const kJLWebMediaCompletedCallbackKey = @"completed";
  *
  *  @return 下载任务
  */
-- (id<JLWebMediaOperation>)downloadFileWithURL:(NSURL *)url
+- (id<JLWebMediaOperation>)downloadMediaWithURL:(NSURL *)url
              progress:(JLWebMediaDownloaderProgressBlock)progressBlock
         comletedBlock:(JLWebMediaDownloaderCompletedBlock)completedBlock;
+
+
 
 
 /**

@@ -126,7 +126,7 @@ static NSString * const SDWebVideoFileTempName = @"com.SDWebVideo.downloaderTemp
     });
 }
 
-- (void)clearDirectoryOnCompletion:(SDWebVideoNoParamsBlock)completion path:(NSString *)path
+- (void)clearDirectoryOnCompletion:(JLWebMediaNoParamsBlock)completion path:(NSString *)path
 {
     dispatch_async(self.ioQueue, ^{
         [_fileManager removeItemAtPath:path error:nil];

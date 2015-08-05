@@ -11,13 +11,13 @@
 #import "SDVideoCache.h"
 #import "JLWebMediaDownloader.h"
 
-typedef void(^SDWebVideoCompletionBlock)(NSString *videoPath, NSError *error, BOOL finished, NSURL *videoURL);
+typedef void(^JLWebVideoCompletionBlock)(NSString *videoPath, NSError *error, BOOL finished, NSURL *videoURL);
 
-@interface SDWebVideoManager : NSObject
+@interface JLWebVideoManager : NSObject
 @property (nonatomic, strong) JLWebMediaDownloader *videoDownloader;
 @property (nonatomic, strong) SDVideoCache *videoCache;
 
-+ (SDWebVideoManager *)sharedManager;
++ (JLWebVideoManager *)sharedManager;
 
 /**
  *  下载视频
@@ -31,5 +31,5 @@ typedef void(^SDWebVideoCompletionBlock)(NSString *videoPath, NSError *error, BO
  */
 - (id<JLWebMediaOperation>)downloadVideoWithURL:(NSURL *)url
                                        progress:(JLWebMediaDownloaderProgressBlock)progressBlock
-                                      completed:(SDWebVideoCompletionBlock)completedBlock;
+                                      completed:(JLWebVideoCompletionBlock)completedBlock;
 @end

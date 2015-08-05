@@ -9,7 +9,7 @@
 #import "JLWebMediaDownloader.h"
 #import <UIKit/UIKit.h>
 #import "JLWebMediaCompat.h"
-#import "JLWebMediaControl.h"
+#import "JLWebMediaFileControl.h"
 
 @implementation NSURLSessionDownloadTask (JLWebMedia)
 
@@ -94,7 +94,7 @@
     
 }
 
-- (id<JLWebMediaOperation>)downloadFileWithURL:(NSURL *)url
+- (id<JLWebMediaOperation>)downloadMediaWithURL:(NSURL *)url
              progress:(JLWebMediaDownloaderProgressBlock)progressBlock
         comletedBlock:(JLWebMediaDownloaderCompletedBlock)completedBlock
 {
@@ -106,12 +106,12 @@
         NSString *resumeDataPath = [weakSelf resumeDataPathWithURL:url];
         //TODO: 考虑断点续载的过期时间处理
         //TODO: 应用关闭后，冷启动，断点下载有问题
-        if([[JLWebMediaControl share] fileExistWithPath:resumeDataPath])
+        if([[JLWebMediaFileControl share] fileExistWithPath:resumeDataPath])
         {
             NSData *resumeData = [[NSData alloc] initWithContentsOfFile:resumeDataPath];
             downloadTask = [weakSelf.session downloadTaskWithResumeData:resumeData];
             //清除断点内容缓存
-            [[JLWebMediaControl share] removeItemForPath:resumeDataPath completion:^{
+            [[JLWebMediaFileControl share] removeItemForPath:resumeDataPath completion:^{
                 NSLog(@"JLWebMediaDownloader:清除了断点缓存信息内容");
             }];
         }

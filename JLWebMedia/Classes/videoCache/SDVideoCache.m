@@ -8,7 +8,6 @@
 
 #import "SDVideoCache.h"
 #import "SDWebVideoFile.h"
-#import "SDWebVideoCompat.h"
 
 @interface SDVideoCache ()
 @property (nonatomic, strong) NSString *protectedDir;
@@ -76,8 +75,9 @@
         if(operation.isCancelled) return ;
         BOOL exsit = [[SDWebVideoFile share] fileExistWithPath:path];
         NSString *videoPath = exsit ? path : nil;
-        dispatch_main_async_safe(^{
-             if(doneBlock) doneBlock(videoPath, SDVideoCacheTypeDisk);
+        jl_main_async_safe(^{
+            if(doneBlock) doneBlock(videoPath, SDVideoCacheTypeDisk);
+
         });
     });
     return operation;
@@ -90,9 +90,10 @@
     NSString *path = [self videoPathFromKey:key];
     dispatch_async(webVideoFile.ioQueue, ^{
         BOOL success = [webVideoFile.fileManager moveItemAtPath:tempPath toPath:path error:nil];
-        dispatch_main_async_safe(^{
-          if(completion) completion(path, success);
-        })
+        jl_main_sync_safe(^{
+            if(completion) completion(path, success);
+
+        });
     });
 }
 
@@ -103,7 +104,7 @@
     }];
 }
 
-- (void)clearCacheOnCompletion:(SDWebVideoNoParamsBlock)completion
+- (void)clearCacheOnCompletion:(JLWebMediaNoParamsBlock)completion
 {
     NSString *path = [[SDWebVideoFile share] getDirectoryWithPath:self.cacheDir];
     [[SDWebVideoFile share] clearDirectoryOnCompletion:completion path:path];
