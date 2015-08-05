@@ -3,5 +3,6 @@
 
 JLWebMedia是一个用于下载各种Web文件，思路基于SDWebImage.
 
-pod安装方法
+usage:
+
 pod 'JLWebMedia', :git => 'https://github.com/JeremyLyu/JLWebMedia.git'
