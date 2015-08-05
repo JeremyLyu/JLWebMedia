@@ -15,7 +15,6 @@
 		297579231B71AF9D000670E4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297579211B71AF9D000670E4 /* LaunchScreen.xib */; };
 		2975792F1B71AF9E000670E4 /* JLWebMediaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2975792E1B71AF9E000670E4 /* JLWebMediaTests.m */; };
 		297579651B71B0B9000670E4 /* SDVideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2975795C1B71B0B9000670E4 /* SDVideoCache.m */; };
-		297579661B71B0B9000670E4 /* SDWebVideoFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2975795F1B71B0B9000670E4 /* SDWebVideoFile.m */; };
 		297579671B71B0B9000670E4 /* JLWebVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 297579611B71B0B9000670E4 /* JLWebVideoManager.m */; };
 		297579731B71EFB5000670E4 /* JLWebMediaFileControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2975796C1B71EFB5000670E4 /* JLWebMediaFileControl.m */; };
 		297579741B71EFB5000670E4 /* JLWebMediaDownloader+sessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 297579701B71EFB5000670E4 /* JLWebMediaDownloader+sessionDelegate.m */; };
@@ -48,8 +47,6 @@
 		2975792E1B71AF9E000670E4 /* JLWebMediaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JLWebMediaTests.m; sourceTree = "<group>"; };
 		2975795B1B71B0B9000670E4 /* SDVideoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDVideoCache.h; sourceTree = "<group>"; };
 		2975795C1B71B0B9000670E4 /* SDVideoCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDVideoCache.m; sourceTree = "<group>"; };
-		2975795E1B71B0B9000670E4 /* SDWebVideoFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebVideoFile.h; sourceTree = "<group>"; };
-		2975795F1B71B0B9000670E4 /* SDWebVideoFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebVideoFile.m; sourceTree = "<group>"; };
 		297579601B71B0B9000670E4 /* JLWebVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLWebVideoManager.h; sourceTree = "<group>"; };
 		297579611B71B0B9000670E4 /* JLWebVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLWebVideoManager.m; sourceTree = "<group>"; };
 		2975796A1B71EFB5000670E4 /* JLWebMediaCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLWebMediaCompat.h; sourceTree = "<group>"; };
@@ -163,8 +160,6 @@
 			children = (
 				2975795B1B71B0B9000670E4 /* SDVideoCache.h */,
 				2975795C1B71B0B9000670E4 /* SDVideoCache.m */,
-				2975795E1B71B0B9000670E4 /* SDWebVideoFile.h */,
-				2975795F1B71B0B9000670E4 /* SDWebVideoFile.m */,
 				297579601B71B0B9000670E4 /* JLWebVideoManager.h */,
 				297579611B71B0B9000670E4 /* JLWebVideoManager.m */,
 			);
@@ -300,7 +295,6 @@
 				297579671B71B0B9000670E4 /* JLWebVideoManager.m in Sources */,
 				297579151B71AF9D000670E4 /* main.m in Sources */,
 				297579741B71EFB5000670E4 /* JLWebMediaDownloader+sessionDelegate.m in Sources */,
-				297579661B71B0B9000670E4 /* SDWebVideoFile.m in Sources */,
 				297579751B71EFB5000670E4 /* JLWebMediaDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

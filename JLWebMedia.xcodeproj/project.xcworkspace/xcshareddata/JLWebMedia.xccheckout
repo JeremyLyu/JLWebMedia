@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>3963DE6E-DD70-4F1E-82BF-2E441EB5C75B</string>
 	<key>IDESourceControlProjectName</key>
-	<string>JLWebMedia</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D1AD44747F44A3F7632F34BD7A944A6023A8F038</key>
 		<string>https://github.com/JeremyLyu/JLWebMedia.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>JLWebMedia.xcodeproj</string>
+	<string>JLWebMedia.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>D1AD44747F44A3F7632F34BD7A944A6023A8F038</key>

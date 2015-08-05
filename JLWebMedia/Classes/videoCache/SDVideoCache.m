@@ -7,14 +7,14 @@
 //
 
 #import "SDVideoCache.h"
-#import "SDWebVideoFile.h"
+#import "JLWebMediaFileControl.h"
 
 @interface SDVideoCache ()
 @property (nonatomic, strong) NSString *protectedDir;
 @property (nonatomic, strong) NSString *cacheDir;
 @end
 
-#define SDWebVideoCacheDirName @"com.SDWebVideo.Cache"
+#define JLWebVideoCacheDirName @"com.JLWebVideo.Cache"
 
 @implementation SDVideoCache
 
@@ -33,7 +33,7 @@
     if(self)
     {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *diskCachePath = [paths[0] stringByAppendingPathComponent:SDWebVideoCacheDirName];
+        NSString *diskCachePath = [paths[0] stringByAppendingPathComponent:JLWebVideoCacheDirName];
         self.cacheDir = [diskCachePath stringByAppendingPathComponent:@"default"];
         self.protectedDir = [diskCachePath stringByAppendingPathComponent:@"protected"];
     }
@@ -44,7 +44,7 @@
 {
     NSString *dirPath = [self videoCacheDirFromKey:key];
     if(dirPath == nil) return nil;
-    NSString *path = [dirPath stringByAppendingPathComponent:[SDWebVideoFile cachedFileNameForKey:key]];
+    NSString *path = [dirPath stringByAppendingPathComponent:[JLWebMediaFileControl cachedFileNameForKey:key]];
     path = [path stringByAppendingString:@".mp4"];
     return path; 
 }
@@ -56,7 +56,7 @@
         dirPath = self.protectedDir;
     else
         dirPath =  self.cacheDir;
-    return [[SDWebVideoFile share] getDirectoryWithPath:dirPath];
+    return [[JLWebMediaFileControl share] getDirectoryWithPath:dirPath];
 }
 
 - (NSOperation *)queryDiskCacheFor:(NSString *)key done:(SDWebVideoQueryCompletedBlock)doneBlock
@@ -71,28 +71,28 @@
     
     NSString *path = [self videoPathFromKey:key];
     
-    dispatch_async([SDWebVideoFile share].ioQueue, ^{
+    [[JLWebMediaFileControl share] async_safe:^{
         if(operation.isCancelled) return ;
-        BOOL exsit = [[SDWebVideoFile share] fileExistWithPath:path];
+        BOOL exsit = [[JLWebMediaFileControl share] fileExistWithPath:path];
         NSString *videoPath = exsit ? path : nil;
         jl_main_async_safe(^{
             if(doneBlock) doneBlock(videoPath, SDVideoCacheTypeDisk);
-
         });
-    });
+
+    }];
     return operation;
 }
 
 - (void)storeVideoWithPath:(NSString *)tempPath forKey:(NSString *)key completion:(SDWebVideoStoreCompletedBlock)completion;
 {
     //TODO: 这里需要增加一个对 tempPath 和 key的一个保护判断
-    SDWebVideoFile *webVideoFile = [SDWebVideoFile share];
+    //TODO: 这里需要修改
+    JLWebMediaFileControl *webVideoFile = [JLWebMediaFileControl share];
     NSString *path = [self videoPathFromKey:key];
     dispatch_async(webVideoFile.ioQueue, ^{
         BOOL success = [webVideoFile.fileManager moveItemAtPath:tempPath toPath:path error:nil];
         jl_main_sync_safe(^{
             if(completion) completion(path, success);
-
         });
     });
 }
@@ -100,19 +100,20 @@
 - (void)removeVideoCacheForKey:(NSString *)key
 {
     NSString *path = [self videoPathFromKey:key];
-    [[SDWebVideoFile share] removeItemForPath:path completion:^{
+    [[JLWebMediaFileControl share] removeItemForPath:path completion:^{
+        
     }];
 }
 
 - (void)clearCacheOnCompletion:(JLWebMediaNoParamsBlock)completion
 {
-    NSString *path = [[SDWebVideoFile share] getDirectoryWithPath:self.cacheDir];
-    [[SDWebVideoFile share] clearDirectoryOnCompletion:completion path:path];
+    NSString *path = [[JLWebMediaFileControl share] getDirectoryWithPath:self.cacheDir];
+    [[JLWebMediaFileControl share] clearDirectoryOnCompletion:completion path:path];
 }
 
 - (NSUInteger)getSize {
-    NSString *path = [[SDWebVideoFile share] getDirectoryWithPath:self.cacheDir];
-    return [[SDWebVideoFile share] getSizeWithPath:path];
+    NSString *path = [[JLWebMediaFileControl share] getDirectoryWithPath:self.cacheDir];
+    return [[JLWebMediaFileControl share] getSizeWithPath:path];
 }
 
 @end
