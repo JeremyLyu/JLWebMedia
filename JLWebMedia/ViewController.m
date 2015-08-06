@@ -26,16 +26,17 @@
 {
     NSURL *url = [NSURL URLWithString:@"http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1308/15/c2/24494083_1376530583817.jpg"];
     self.btnDownLoad.enabled = NO;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        __weak typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
+    int i = 0;
+    while (i++ < 2) {
         [[JLWebVideoManager sharedManager] downloadVideoWithURL:url progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            weakSelf.labelProgress.text = [NSString stringWithFormat:@"%.0ld/%.0ld", (long)receivedSize, (long)expectedSize];
+            //            weakSelf.labelProgress.text = [NSString stringWithFormat:@"%.0ld/%.0ld", (long)receivedSize, (long)expectedSize];
             
         } completed:^(NSString *videoPath, NSError *error, BOOL finished, NSURL *videoURL) {
             weakSelf.btnDownLoad.enabled = YES;
             weakSelf.labelProgress.text = @"已完成";
         }];
-    });
+    }
 }
 
 - (IBAction)clearCacheBtnPressed:(id)sender

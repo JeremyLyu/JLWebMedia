@@ -89,9 +89,17 @@
     //TODO: 这里需要修改
     JLWebMediaFileControl *webVideoFile = [JLWebMediaFileControl share];
     NSString *path = [self videoPathFromKey:key];
+    if([webVideoFile fileExistWithPath:path])
+    {
+        jl_main_async_safe(^{
+           if(completion) completion(path, YES);
+        });
+        return ;
+    }
     dispatch_async(webVideoFile.ioQueue, ^{
         BOOL success = [webVideoFile.fileManager moveItemAtPath:tempPath toPath:path error:nil];
-        jl_main_sync_safe(^{
+        NSLog(@"%@",@(success));
+        jl_main_async_safe(^{
             if(completion) completion(path, success);
         });
     });
