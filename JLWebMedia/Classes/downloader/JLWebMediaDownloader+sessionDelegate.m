@@ -62,8 +62,6 @@ static NSString * const JLWebMediaDownLoaderCacheDir = @"cn.JLWebMedia.downloade
     //对外部进行回调
     NSArray *callbacks = [self callbaksForURL:url];
     jl_main_async_safe(^{
-        //TODO: 这里有点问题，如果多个callbacks其中一个callback把文件move操作了，而别的callbacks同时也需要Move.
-        //还是说根本不用管，外部怎么操作已经不属于下载模块的事情了
         for(NSDictionary *callback in callbacks)
         {
             JLWebMediaDownloaderCompletedBlock completeBlock = callback[kJLWebMediaCompletedCallbackKey];

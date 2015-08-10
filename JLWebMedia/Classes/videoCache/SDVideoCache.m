@@ -98,7 +98,6 @@
     }
     dispatch_async(webVideoFile.ioQueue, ^{
         BOOL success = [webVideoFile.fileManager moveItemAtPath:tempPath toPath:path error:nil];
-        NSLog(@"%@",@(success));
         jl_main_async_safe(^{
             if(completion) completion(path, success);
         });

@@ -6,6 +6,10 @@
 //  Copyright (c) 2015年 PinGuo. All rights reserved.
 //
 
+
+//TODO: 缺少对cache的生命周期管理
+//TODO: 对cache的操作的线程操作，目前使用公共ioQueue似乎不够安全
+
 #import <Foundation/Foundation.h>
 #import "JLWebMediaCompat.h"
 

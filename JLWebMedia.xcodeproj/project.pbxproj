@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2935D2661B784DA400DC265E /* JLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2935D2651B784DA400DC265E /* JLImageCache.m */; };
 		297579151B71AF9D000670E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 297579141B71AF9D000670E4 /* main.m */; };
 		297579181B71AF9D000670E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 297579171B71AF9D000670E4 /* AppDelegate.m */; };
 		2975791B1B71AF9D000670E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2975791A1B71AF9D000670E4 /* ViewController.m */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2935D2641B784DA400DC265E /* JLImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLImageCache.h; sourceTree = "<group>"; };
+		2935D2651B784DA400DC265E /* JLImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLImageCache.m; sourceTree = "<group>"; };
 		2975790F1B71AF9D000670E4 /* JLWebMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JLWebMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		297579131B71AF9D000670E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		297579141B71AF9D000670E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -77,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2935D2631B784D4C00DC265E /* imageCache */ = {
+			isa = PBXGroup;
+			children = (
+				2935D2641B784DA400DC265E /* JLImageCache.h */,
+				2935D2651B784DA400DC265E /* JLImageCache.m */,
+			);
+			path = imageCache;
+			sourceTree = "<group>";
+		};
 		297579061B71AF9D000670E4 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +151,7 @@
 		2975793A1B71B055000670E4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2935D2631B784D4C00DC265E /* imageCache */,
 				297579691B71EFB5000670E4 /* common */,
 				2975796E1B71EFB5000670E4 /* downloader */,
 				2975795A1B71B0B9000670E4 /* videoCache */,
@@ -291,6 +304,7 @@
 				297579731B71EFB5000670E4 /* JLWebMediaFileControl.m in Sources */,
 				2975791B1B71AF9D000670E4 /* ViewController.m in Sources */,
 				297579181B71AF9D000670E4 /* AppDelegate.m in Sources */,
+				2935D2661B784DA400DC265E /* JLImageCache.m in Sources */,
 				297579651B71B0B9000670E4 /* SDVideoCache.m in Sources */,
 				297579671B71B0B9000670E4 /* JLWebVideoManager.m in Sources */,
 				297579151B71AF9D000670E4 /* main.m in Sources */,
